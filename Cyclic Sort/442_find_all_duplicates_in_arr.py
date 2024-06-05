@@ -2,6 +2,8 @@ class Solution:
     def findDuplicates(self, nums: list[int]) -> list[int]:
         i=0
         n = len(nums)
+        if not nums or n==1:
+            return []
         while i<n:
             j = nums[i]-1
             if nums[j] != nums[i]:
