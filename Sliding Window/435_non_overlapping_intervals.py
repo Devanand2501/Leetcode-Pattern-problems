@@ -9,7 +9,7 @@ class Solution:
         for i in intervals[1:]:
             last = merged[-1]
             if last[1]>i[0]:
-                count+=1
+                count+=1    
             else:
                 merged.append(i)
         print(count)
