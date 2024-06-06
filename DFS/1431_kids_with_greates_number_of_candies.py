@@ -3,8 +3,8 @@ class Solution:
         ans = []
         maxx = max(candies)
         i = 0
-        while i<len(candies):
-            if candies[i]+extraCandies < maxx:
+        for i in candies:
+            if i+extraCandies < maxx:
                 ans.append(False)
             else:
                 ans.append(True)
