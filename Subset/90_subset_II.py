@@ -1,7 +1,7 @@
 class Solution:
     def subsetsWithDup(self, nums: list[int]) -> list[list[int]]:
         res = [[]]
-
+        nums.sort()
         for i in nums:
             sub = []
             print("res",res)
@@ -14,4 +14,5 @@ class Solution:
 
 obj = Solution()
 nums = [1,2,2]
+nums = [4,4,4,1,4]
 print(obj.subsetsWithDup(nums))
