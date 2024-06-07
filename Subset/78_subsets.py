@@ -7,8 +7,8 @@ class Solution:
                 sub.append(j+[i])
             res.extend(sub)
         print(res)
-        
 
 obj = Solution()
 nums = [1,2,3]
+nums = [0]
 print(obj.subsets(nums))
