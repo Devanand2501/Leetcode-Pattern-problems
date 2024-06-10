@@ -5,18 +5,15 @@ class Solution:
         n = len(words)
         if n<k:
             return words
-        freq = Counter(words)
-        print(freq)
-        ans = []
-        for i in freq.items():
-            heapq.heappush(ans,(i[1],i[0]))
-            if len(ans)>k:
-                heapq.heappop(ans)
-        ans = [word for frequency,word in ans]
-        return ans
+        freq =list( Counter(words).items())
+        heap = [(-frequency,word) for word,frequency in freq]
+        heapq.heapify(heap)
+        print(heap)
+        result = [heapq.heappop(heap)[1] for _ in range(k)]
+        return result
 obj = Solution()
 words = ["i","love","leetcode","i","love","coding"]
-k = 2
-# words = ["the","day","is","sunny","the","the","the","sunny","is","is"]
-# k = 4
+k = 3
+words = ["the","day","is","sunny","the","the","the","sunny","is","is"]
+k = 4
 print(obj.topKFrequent(words,k))
