@@ -1,17 +1,8 @@
 from typing import Counter
 class Solution:
     def uniqueOccurrences(self, arr: list[int]) -> bool:
-        if len(arr)<=1:
-            return True
         freq = Counter(arr)
-        freq = list(freq.items())
-        freq = [x[1] for x in freq]
-        freq.sort()
-        print(freq)
-        for i in range(len(freq)-1):
-            if freq[i]==freq[i+1]:
-                return False
-        return True
+        return len(freq.values()) == len(set(freq.values()))
 
 obj = Solution()
 arr = [1,2,2,1,1,1,3]
