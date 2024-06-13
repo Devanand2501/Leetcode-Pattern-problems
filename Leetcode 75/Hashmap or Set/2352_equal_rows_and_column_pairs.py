@@ -1,6 +1,15 @@
+from typing import Counter
 class Solution:
     def equalPairs(self, grid: list[list[int]]) -> int:
-        n = len(grid)
+        pairs = 0
+        counter = Counter(tuple(row) for row in grid)
+        print(counter)
+        for col in zip(*grid):
+            pairs += counter[col]
+        return pairs
+        
+        
+        '''n = len(grid)
         # j=0
         count = 0
         for i in range(n):
@@ -9,7 +18,7 @@ class Solution:
                 if grid[i] == [x[j] for x in grid]:
                     count+=1
                 j+=1
-        return count
+        return count'''
 
 obj = Solution()
 grid = [[3,2,1],[1,7,6],[2,7,7]]
