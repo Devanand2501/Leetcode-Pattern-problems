@@ -14,16 +14,16 @@ class Solution:
             fast = fast.next.next
             pre = slow 
             slow = slow.next
-            print("fast-->",fast.val,"slow-->",slow.val,"pre-->",pre.val)
         
         pre.next = pre.next.next
         return head
+
 obj = Solution()
 head = ListNode(1)
 head.next = ListNode(2)
 head.next.next = ListNode(3)
 head.next.next.next = ListNode(4)
-# head.next.next.next.next = ListNode(5)
+head.next.next.next.next = ListNode(5)
 
 print(obj.deleteMiddle(head)) # Output: [1,2,4,5]
 while head:
