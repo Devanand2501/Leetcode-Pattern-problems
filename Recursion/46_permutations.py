@@ -17,3 +17,4 @@ class Solution:
 
 obj = Solution()
 print(obj.permute([1, 2, 3]))
+print(obj.permute([1, 2, 3,4,5]))
