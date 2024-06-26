@@ -7,7 +7,7 @@ class Solution:
         current_window_count = defaultdict(int)
         
         required = len(t_count)
-        formed = 0
+        haved = 0
         
         left, right = 0, 0
         min_length = float("inf")
@@ -16,20 +16,19 @@ class Solution:
         while right < len(s):
             character = s[right]
             current_window_count[character] += 1
-            
+            print(current_window_count)
             if character in t_count and current_window_count[character] == t_count[character]:
-                formed += 1
+                haved += 1
             
-            while left <= right and formed == required:
+            while left <= right and haved == required:
                 character = s[left]
-                
                 if right - left + 1 < min_length:
                     min_length = right - left + 1
                     min_window = s[left:right + 1]
                 
                 current_window_count[character] -= 1
                 if character in t_count and current_window_count[character] < t_count[character]:
-                    formed -= 1
+                    haved -= 1
                 left += 1
             right += 1
         
