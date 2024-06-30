@@ -8,7 +8,8 @@ class Solution:
             return cost[1]
         if dp[n] != -1:
             return dp[n]
-        return min(self.solve(cost,n-1,dp),self.solve(cost,n-2,dp))+cost[n]
+        dp[n] = min(self.solve(cost,n-1,dp),self.solve(cost,n-2,dp))+cost[n]
+        return dp[n]
 
     def minCostClimbingStairs(self, cost: list[int]) -> int:
         n = len(cost)
