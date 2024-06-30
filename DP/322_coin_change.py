@@ -29,10 +29,23 @@ class Solution:
         dp[amount]= mini
         return dp[amount]
     '''
+
+    def solve3(self,coins,amount):
+        if amount == 0:
+            return 0
+        if amount <0:
+            return 10e7
+        dp = [float('inf')]*(amount+1)
+        dp[0]=0
+        mini = 10e7
+        for i in range(1,amount+1):
+            for coin in coins:
+                if i - coin>=0 and dp[i-coin]!= 10e7:
+                    dp[i] = min(dp[i],1+dp[i-coin])
+        return dp[amount]
     
     def coinChange(self, coins: list[int], amount: int) -> int:
-        dp = [-1]*(len(coins)+1)
-        ans = self.solve2(coins,amount,dp)
+        ans = self.solve3(coins,amount)
         if ans == 10e7:
             return -1
         else:
