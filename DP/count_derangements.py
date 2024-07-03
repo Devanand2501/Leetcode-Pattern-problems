@@ -15,16 +15,17 @@ def countDerangements(n,dp):
     if n==2:
         return 1
     mod = 10**9 + 7
-    dp = [0]* (n+1)
-    dp[1] = 0
-    dp[2] = 1
+    prev1 = 0
+    prev2 = 1
     for i in range(3,n+1):  
-        first = dp[i-1] % mod
-        second = dp[i-2] % mod
+        first = prev1 % mod
+        second = prev2 % mod
         add = (first + second) %mod
         ans = (i-1  * add)%mod
         dp[i] = ans
-    return dp[n]
+        prev1 = prev2
+        prev2 = ans
+    return prev2
 
 t = int(input())
 for _ in range(t):
