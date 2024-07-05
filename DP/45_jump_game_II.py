@@ -1,4 +1,4 @@
-class Solution:
+'''
     def solve(self, nums, i, n,dp):
         if i >= n - 1:
             return 0
@@ -20,6 +20,25 @@ class Solution:
         if n == 0:
             return 0
         return self.solve(nums, 0, n,dp)
+'''
+class Solution:
+    def jump(self, nums: list[int]) -> int:
+        def findTargetIndex(target_index, count):
+            if target_index == 0:
+                return count
+            for i in range(len(lt)):
+                if lt[i][1] >= target_index:
+                    return findTargetIndex(i, count + 1)
+        lt = []
+
+        for i in range(len(nums)):
+            lt.append((i, i + nums[i]))
+        print(lt)
+        count = findTargetIndex(len(nums) - 1, 0)
+        print(count)
+        return count
+        
+
 
 obj = Solution()
 nums = [2,3,1,1,4]
