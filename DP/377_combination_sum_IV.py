@@ -20,7 +20,6 @@ class Solution:
     def solve(self,nums,target):
         dp = [0] * (target+1)
         dp[0]=1
-        count = 0
         for i in range(1,target+1):
             for j in nums:
                 if i-j >= 0:
