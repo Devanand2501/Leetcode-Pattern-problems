@@ -1,5 +1,6 @@
 class Solution:
-    def solve(self,n,days,cost,index,dp):
+    ''' RECURSION + MEMOIZATION
+        def solve(self,n,days,cost,index,dp):
         if index>=n:
             return 0
         
@@ -30,6 +31,34 @@ class Solution:
         n = len(days)
         dp = [-1] * (n+1)
         return self.solve(n,days,costs,0,dp)
+    '''
+    def solve(self,n,days,cost):
+        dp = [float('inf')] * (n+1)
+        dp[n] = 0
+        for k in range(n-1,-1,-1):
+            # 1 Day pass 
+            oneDay = dp[k+1] + cost[0]
+            
+            i = k
+            while i<n and days[i]<days[k] + 7:
+                i+=1
+            
+            # 7 Days pass
+            sevenDay = dp[i] + cost[1]
+            
+            i = k
+            while i<n and days[i]<days[k] + 30:
+                i+=1
+            
+            # 30 Days pass
+            thirtyDay = dp[i] + cost[2]
+
+            dp[k] =  min(oneDay,min(sevenDay,thirtyDay))
+        return dp[k]
+
+    def mincostTickets(self, days: list[int], costs: list[int]) -> int:
+        n = len(days)
+        return self.solve(n,days,costs)
 
 
 obj = Solution()
