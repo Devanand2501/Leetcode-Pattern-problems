@@ -1,4 +1,5 @@
 class Solution:
+    ''' RECURSION + MEMOIZATION
     def solve(self,matrix,maxx,i,j,dp):
         if (i>=len(matrix) or j>=len(matrix[0])):
             return 0
@@ -14,11 +15,28 @@ class Solution:
         else:
             dp[i][j]=0 
             return dp[i][j]
-
+    '''
+    
+    def solve(self,matrix,maxx,i,j):
+        row = len(matrix)
+        col = len(matrix[0])
+        dp = [[0 for _ in range(col + 1)] for _ in range(row + 1)]
+        for i in range(row-1,-1,-1):
+            for j in range(col-1,-1,-1):
+                right = dp[i][j+1]
+                bottom = dp[i+1][j]
+                diagonal = dp[i+1][j+1]
+                if matrix[i][j] == "1":
+                    dp[i][j] = 1 + min(diagonal,min(bottom,right))
+                    maxx[0] = max(dp[i][j],maxx[0])
+                else:
+                    dp[i][j]=0
+        else:
+            dp[i][j]=0 
+        return dp[i][j]
     def maximalSquare(self, matrix: list[list[str]]) -> int:
         maxx = [0]
-        dp = [[-1 for _ in range(len(matrix[0]))] for _ in range(len(matrix))]
-        self.solve(matrix,maxx ,0,0,dp)
+        self.solve(matrix,maxx ,0,0)
         return maxx[0] * maxx[0]
         
 
