@@ -1,3 +1,4 @@
+from collections import deque
 class Solution:
     ''' RECURSION + MEMOIZATION
         def solve(self,n,days,cost,index,dp):
@@ -32,6 +33,7 @@ class Solution:
         dp = [-1] * (n+1)
         return self.solve(n,days,costs,0,dp)
     '''
+    ''' TABULATION APPROACH
     def solve(self,n,days,cost):
         dp = [float('inf')] * (n+1)
         dp[n] = 0
@@ -55,6 +57,26 @@ class Solution:
 
             dp[k] =  min(oneDay,min(sevenDay,thirtyDay))
         return dp[k]
+    '''
+    
+    def solve(self,n,days,costs):
+        ans = 0
+        monthly = deque()
+        weekly = deque()
+        for day in days :
+            # Remove expired days 
+            while len(monthly)>0 and monthly[0][0] <= day - 30:
+                monthly.popleft()
+            while len(weekly)>0 and weekly[0][0] <= day - 7:
+                weekly.popleft()
+            
+            # Push Current Days cost 
+            weekly.append((day,ans+costs[1]))
+            monthly.append((day,ans+costs[2]))
+
+            # Update the answer 
+            ans = min(ans + costs[0], min(monthly[0][1],weekly[0][1]))
+        return ans 
 
     def mincostTickets(self, days: list[int], costs: list[int]) -> int:
         n = len(days)
