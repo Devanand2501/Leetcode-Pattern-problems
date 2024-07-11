@@ -16,7 +16,7 @@ class Solution:
             dp[i][j]=0 
             return dp[i][j]
     '''
-    
+    ''' TABULAR METHOD
     def solve(self,matrix,maxx,i,j):
         row = len(matrix)
         col = len(matrix[0])
@@ -34,11 +34,28 @@ class Solution:
         else:
             dp[i][j]=0 
         return dp[i][j]
+    '''
+    def solve(self,matrix,maxx,i,j):
+        row = len(matrix)
+        col = len(matrix[0])
+        current = [0] * (col+1)
+        previous = [0] * (col+1)
+        for i in range(row-1,-1,-1):
+            for j in range(col-1,-1,-1):
+                right = current[j+1]
+                bottom = previous[j]
+                diagonal = previous[j+1]
+                if matrix[i][j] == "1":
+                    current[j] = 1 + min(diagonal,min(bottom,right))
+                    maxx[0] = max(current[j],maxx[0])
+                else:
+                    current[j]=0
+            previous = current[:]
+        return current[j]
     def maximalSquare(self, matrix: list[list[str]]) -> int:
         maxx = [0]
         self.solve(matrix,maxx ,0,0)
         return maxx[0] * maxx[0]
-        
 
 obj = Solution()
 matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
