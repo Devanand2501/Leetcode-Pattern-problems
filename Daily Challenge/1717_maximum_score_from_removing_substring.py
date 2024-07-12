@@ -40,10 +40,18 @@ class Solution:
         return total_score
 
     def remove_substring(self, input: str, target_pair: str) -> str:
-        while input.find(target_pair) != -1:
-            index = input.find(target_pair)
-            input = input[:index] + input[index+2:]
-        return input 
+        char_stack = []
+        for current_char in input:
+            if (
+                current_char == target_pair[1]
+                and char_stack
+                and char_stack[-1] == target_pair[0]
+            ):
+                char_stack.pop() 
+            else:
+                char_stack.append(current_char)
+        return "".join(char_stack)
+
 
 s = "aabbaaxybbaabb"
 x = 5
