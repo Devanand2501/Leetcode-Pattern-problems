@@ -30,8 +30,6 @@ class Solution:
                     i += 1
                 multiplicity = int(formula[i_start:i] or 1)
                 stack[-1][name] += multiplicity
-        
-
         counts = stack[0]
         return ''.join(name + (str(counts[name]) if counts[name] > 1 else '')
                         for name in sorted(counts))
