@@ -1,4 +1,5 @@
 class Solution:
+    ''' RECURSION + MEMOIZATION
     def solve(self,score, index, time,dp):
         if index == len(score):
             return 0
@@ -8,11 +9,21 @@ class Solution:
         exc = self.solve(score,index + 1, time,dp)
         dp[index][time] = max(inc,exc)
         return dp[index][time]
+    '''
+    def solve(self,score, index, time):
+        n = len(score)
+        dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
+        for index in range(n-1,-1,-1):
+            for time in  range(n-1,-1,-1):
+                inc = score[index] * (time) + dp[index + 1] [time + 1]
+                exc = dp[index + 1] [time]
+                dp[index][time] = max(inc,exc)
+        return dp[index][time]
     def maxSatisfaction(self, satisfaction: list[int]) -> int:
-        n = len(satisfaction)
-        dp = [[-1 for _ in range(n+1)] for _ in range(n+1)]
+        # n = len(satisfaction)
+        # dp = [[-1 for _ in range(n+1)] for _ in range(n+1)]
         satisfaction.sort()
-        return self.solve(satisfaction,0,1,dp)
+        return self.solve(satisfaction,0,1)
 
 obj = Solution()
 print(obj.maxSatisfaction([-1,-8,0,5,-9]))
