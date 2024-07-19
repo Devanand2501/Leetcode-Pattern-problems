@@ -11,12 +11,9 @@ class Solution:
         return inc or exc
     def canPartition(self, nums: list[int]) -> bool:
         n = len(nums)
-        nums.sort()
-        if sum(nums[:n-1]) > nums[-1]:
-            return False
         if sum(nums) % 2 == 1:
             return False
-        return self.solve(nums,0,sum(nums))
+        return self.solve(nums,0,sum(nums)//2)
 
 obj = Solution()
 nums = [1,5,11,5]
