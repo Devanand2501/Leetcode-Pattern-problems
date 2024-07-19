@@ -22,6 +22,7 @@ class Solution:
         dp = [[-1 for _ in range(target+1)] for _ in range(n+1)]
         return (self.solve(n,k,target,dp)) % (10 ** 9 + 7)
     '''
+    ''' BOTTOM UP 
     def solve(self,n,k,x):
         dp = [[0 for _ in range(x+1)] for _ in range(n+1)]
         dp[0][0] = 1
@@ -33,6 +34,20 @@ class Solution:
                         ans += dp[dice-1][target-i]
                 dp[dice][target]= ans
         return dp[n][x]
+    '''
+    def solve(self,n,k,x):
+        curr = [0] * (x+1)
+        prev = [0] * (x+1)
+        prev[0] = 1
+        for dice in range(1,n+1):
+            for target in range(1,x+1):
+                ans = 0
+                for i in range(1,k+1):
+                    if target>=i:
+                        ans += prev[target-i]
+                curr[target]= ans
+            prev = curr[:]
+        return prev[x]
     def numRollsToTarget(self, n: int, k: int, target: int) -> int:
         return (self.solve(n,k,target)) % (10 ** 9 + 7)
 
