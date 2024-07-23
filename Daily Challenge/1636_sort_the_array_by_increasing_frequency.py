@@ -3,12 +3,8 @@ class Solution:
     def frequencySort(self, nums: List[int]) -> List[int]:
         counter = Counter(nums)
         print(counter)
-        ans = []
-        for key, value in sorted(counter.items(),key= lambda x:(x[1],-x[0])):
-            print(key,value)
-            for i in range(value):
-                ans.append(key)
-        return ans
+        nums.sort(key=lambda x: (counter[x], -x))
+        return nums
 
 obj = Solution()
 nums = [1,1,2,2,2,3]
