@@ -1,4 +1,5 @@
 class Solution:
+    ''' RECURSION + MEMOIZATION
     def solve(self,triangle,row,i,dp):
         if i==len(triangle[row]):
             return 0
@@ -13,6 +14,16 @@ class Solution:
     def minimumTotal(self, triangle: list[list[int]]) -> int:
         dp = [[-1 for _ in range(len(triangle[-1]))] for _ in range(len(triangle))]
         return self.solve(triangle,0,0,dp)
+    '''
+    def solve(self,triangle):
+        dp = [[0 for _ in range(len(triangle[-1])+1)] for _ in range(len(triangle)+1)]
+        for row in range(len(triangle)-1,-1,-1):
+            for i in range(len(triangle[row])-1,-1,-1):
+                dp[row][i] = triangle[row][i]+min(dp[row+1][i],dp[row+1][i+1])
+        return dp[0][0]
+
+    def minimumTotal(self, triangle: list[list[int]]) -> int:
+        return self.solve(triangle)
 
 triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
 print(Solution().minimumTotal(triangle))
