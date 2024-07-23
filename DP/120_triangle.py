@@ -16,11 +16,13 @@ class Solution:
         return self.solve(triangle,0,0,dp)
     '''
     def solve(self,triangle):
-        dp = [[0 for _ in range(len(triangle[-1])+1)] for _ in range(len(triangle)+1)]
+        curr = [0] * (len(triangle[-1])+1)
+        next = [0] * (len(triangle[-1])+1)
         for row in range(len(triangle)-1,-1,-1):
             for i in range(len(triangle[row])-1,-1,-1):
-                dp[row][i] = triangle[row][i]+min(dp[row+1][i],dp[row+1][i+1])
-        return dp[0][0]
+                curr[i] = triangle[row][i]+min(next[i],next[i+1])
+            next = curr[:]
+        return next[0]
 
     def minimumTotal(self, triangle: list[list[int]]) -> int:
         return self.solve(triangle)
