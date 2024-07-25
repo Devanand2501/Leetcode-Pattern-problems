@@ -1,9 +1,11 @@
+from typing import Counter
 class Solution:
+    ''' MERGE SORT
     def merge(self,arr, s, e):
         mid = (s + e) // 2
         l1 = mid - s + 1
         l2 = e - mid
-        print("l1-->", l1, "l2-->", l2)
+        # print("l1-->", l1, "l2-->", l2)
         left = [0] * l1
         right = [0] * l2
         k = s
@@ -48,6 +50,17 @@ class Solution:
         if len(nums) <= 1:
             return nums
         return self.mergeSort(nums, 0, len(nums) - 1)
+    '''
+    # Counting Sort 
+    def sortArray(self, nums: list[int]) -> list[int]:
+        counter = Counter(nums)
+        minn = min(nums)
+        maxx = max(nums)
+        arr =[]
+        for i in range(minn,maxx+1):
+            if counter[i] > 0:
+                arr.extend([i] * counter[i])
+        return arr
 
 nums = [5,2,3,1]
 nums = [5,1,1,2,0,0]
