@@ -1,4 +1,5 @@
 class Solution:
+    ''' RECURSION + MEMOIZATION
     def solve(self,i,diff,nums,dp):
         if i<0:
             return 0
@@ -20,6 +21,22 @@ class Solution:
             for j in range(i+1,n):
                 diff = nums[j] - nums[i]
                 ans = max(ans,2 + self.solve(i,diff,nums,dp))
+        return ans
+    '''
+    def longestArithSeqLength(self, nums: list[int]) -> int:
+        n = len(nums)
+        if n<=2:
+            return n
+        dp = {}
+        ans = 0
+        for i in range(1,n):
+            for j in range(i):
+                diff = nums[i] - nums[j]
+                count = 1
+                if (j,diff) in dp:
+                    count = dp[(j,diff)]
+                dp[(i,diff)] = count + 1
+                ans = max(ans,dp[(i,diff)])
         return ans
 
 obj = Solution()
