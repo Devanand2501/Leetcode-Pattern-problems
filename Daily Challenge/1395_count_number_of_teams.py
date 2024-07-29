@@ -1,6 +1,7 @@
 from typing import List
 
 class Solution:
+    ''' RECURSION + MEMOIZATION
     def solve(self, rating: List[int], index: int, count:int, last_rating: int, direction: int,memo) -> int:
         if count == 3:
             return 1
@@ -22,7 +23,33 @@ class Solution:
     def numTeams(self, rating: List[int]) -> int:
         memo = {}
         return self.solve(rating, 0,0,float('-inf'), 0,memo) + self.solve(rating, 0,0,float('inf'), 1,memo)
+    '''
+
+    def numTeams(self, rating: List[int]) -> int:
+        n = len(rating)
+        if n < 3:
+            return 0
+        
+        dp_inc = [0] * n
+        dp_dec = [0] * n
+        
+        for i in range(n):
+            for j in range(i):
+                if rating[j] < rating[i]:
+                    dp_inc[i] += 1
+                elif rating[j] > rating[i]:
+                    dp_dec[i] += 1
+        
+        teams = 0
+        for k in range(n):
+            for j in range(k):
+                if rating[j] < rating[k]:
+                    teams += dp_inc[j]
+                elif rating[j] > rating[k]:
+                    teams += dp_dec[j]
+        
+        return teams
 
 obj = Solution()
 rating = [2,5,3,4,1]
-print(obj.numTeams(rating))  
+print(obj.numTeams(rating))
