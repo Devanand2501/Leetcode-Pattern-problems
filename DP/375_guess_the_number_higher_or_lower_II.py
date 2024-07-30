@@ -31,6 +31,7 @@ class Solution:
                     ans = min(ans,k+ max(dp[start][k-1],dp[k+1][end]))
                 dp[start][end] = ans
         return dp[1][n] 
+
     def getMoneyAmount(self, n: int) -> int:
         return self.solve(n)
 
