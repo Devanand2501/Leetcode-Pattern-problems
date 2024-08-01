@@ -22,19 +22,22 @@ class Solution:
     '''
     def solve(self,prices):
         dp = [[0 for _ in range(2)] for _ in range(len(prices)+1)]
+        curr = [0] * 2
+        prev = [0] * 2
         for index in range(len(prices)-1,-1,-1):
             for can_buy in range(2):
                 profit = 0
                 if can_buy:
-                    buy_karo = -prices[index] + dp[index+1][0]
-                    skip_karo = 0 + dp[index+1][1]
+                    buy_karo = -prices[index] + prev[0]
+                    skip_karo = 0 + prev[1]
                     profit = max(buy_karo,skip_karo)
                 else:
-                    sell_karo = prices[index] +dp[index+1][1]
-                    skip_karo = 0 + dp[index+1][0]
+                    sell_karo = prices[index] +prev[1]
+                    skip_karo = 0 + prev[0]
                     profit = max(sell_karo,skip_karo)
-                dp[index][can_buy] = profit
-        return dp[0][1]
+                curr[can_buy] = profit
+                prev = curr.copy()
+        return prev[1]
     def maxProfit(self, prices: list[int]) -> int:
         return self.solve(prices)
 
