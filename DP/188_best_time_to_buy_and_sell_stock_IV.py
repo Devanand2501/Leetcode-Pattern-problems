@@ -82,7 +82,7 @@ class Solution:
                     profit = max(sell_karo,skip_karo)
                 curr[operation_num] = profit
             next = curr[:]
-        return next[operation_num]
+        return next[0]
 
     def maxProfit(self, k: int, prices: list[int]) -> int:
         return self.solve(k,prices)
