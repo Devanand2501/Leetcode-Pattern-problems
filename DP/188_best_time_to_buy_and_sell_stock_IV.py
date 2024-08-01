@@ -46,6 +46,7 @@ class Solution:
         memo = [[-1 for _ in range(2*k)] for _ in range(len(prices))]
         return self.solve(k,prices,0,0,memo)
     '''
+    ''' BOTTOM UP APPROACH
     def solve(self,k,prices):
         dp = [[-1 for _ in range(2*k)] for _ in range(len(prices))]
         for index in range(len(prices)-1,-1,-1):
@@ -64,9 +65,30 @@ class Solution:
 
     def maxProfit(self, k: int, prices: list[int]) -> int:
         return self.solve(k,prices)
+    '''
+    def solve(self,k,prices):
+        curr = [0 for _ in range(2*k +1)]
+        next = [0 for _ in range(2*k +1)]
+        for index in range(len(prices)-1,-1,-1):
+            for operation_num in range(2*k):
+                profit = 0
+                if operation_num%2==0:
+                    buy_karo = -prices[index] + next[operation_num+1]
+                    skip_karo = 0 + next[operation_num]
+                    profit = max(buy_karo,skip_karo)
+                else:
+                    sell_karo = prices[index] + next[operation_num+1]
+                    skip_karo = 0 + next[operation_num]
+                    profit = max(sell_karo,skip_karo)
+                curr[operation_num] = profit
+            next = curr[:]
+        return next[operation_num]
+
+    def maxProfit(self, k: int, prices: list[int]) -> int:
+        return self.solve(k,prices)
 
 
 obj = Solution()
 k = 2
 prices = [3,2,6,5,0,3]
-print(obj.maxProfit(prices,k))  
+print(obj.maxProfit(k,prices))  
