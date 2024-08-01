@@ -22,6 +22,7 @@ class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
         return self.solve(prices,k)
     '''
+    '''RECURSION + MEMOIZATION
     def solve(self,k,prices,index,operation_num,memo):
         if index==len(prices):
             return 0
@@ -44,6 +45,25 @@ class Solution:
     def maxProfit(self, k: int, prices: list[int]) -> int:
         memo = [[-1 for _ in range(2*k)] for _ in range(len(prices))]
         return self.solve(k,prices,0,0,memo)
+    '''
+    def solve(self,k,prices):
+        dp = [[-1 for _ in range(2*k)] for _ in range(len(prices))]
+        for index in range(len(prices)-1,-1,-1):
+            for operation_num in range(2*k):
+                profit = 0
+                if operation_num%2==0:
+                    buy_karo = -prices[index] + dp[index+1][operation_num+1]
+                    skip_karo = 0 + dp[index+1][operation_num]
+                    profit = max(buy_karo,skip_karo)
+                else:
+                    sell_karo = prices[index] + dp[index+1][operation_num+1]
+                    skip_karo = 0 + dp[index+1][operation_num]
+                    profit = max(sell_karo,skip_karo)
+                dp[index][operation_num] = profit
+        return dp[index][operation_num]
+
+    def maxProfit(self, k: int, prices: list[int]) -> int:
+        return self.solve(k,prices)
 
 
 obj = Solution()
