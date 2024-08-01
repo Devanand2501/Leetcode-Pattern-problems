@@ -22,24 +22,29 @@ class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
         return self.solve(prices,k)
     '''
-    def solve(self,k,prices,index,operation_num):
+    def solve(self,k,prices,index,operation_num,memo):
         if index==len(prices):
             return 0
         if operation_num == 2*k:
             return 0
+        if memo[index][operation_num] != -1:
+            return memo[index][operation_num]
         profit = 0
         if operation_num%2==0:
-            buy_karo = -prices[index] + self.solve(k,prices,index+1,operation_num+1)
-            skip_karo = 0 + self.solve(k,prices,index+1,operation_num)
+            buy_karo = -prices[index] + self.solve(k,prices,index+1,operation_num+1,memo)
+            skip_karo = 0 + self.solve(k,prices,index+1,operation_num,memo)
             profit = max(buy_karo,skip_karo)
         else:
-            sell_karo = prices[index] + self.solve(k,prices,index+1,operation_num+1)
-            skip_karo = 0 + self.solve(k,prices,index+1,operation_num)
+            sell_karo = prices[index] + self.solve(k,prices,index+1,operation_num+1,memo)
+            skip_karo = 0 + self.solve(k,prices,index+1,operation_num,memo)
             profit = max(sell_karo,skip_karo)
-        return profit
+        memo[index][operation_num] = profit
+        return memo[index][operation_num]
 
     def maxProfit(self, k: int, prices: list[int]) -> int:
-        return self.solve(k,prices,0,0)
+        memo = [[-1 for _ in range(2*k)] for _ in range(len(prices))]
+        return self.solve(k,prices,0,0,memo)
+
 
 obj = Solution()
 k = 2
