@@ -3,16 +3,13 @@ class Solution:
         n = len(nums)
         total = nums.count(1)
         nums += nums[:total-1]
-        # print(nums)
-        window = nums[:total] 
-        
-        swaps = total - window.count(1)
+        current_swap = sum(nums[:total])
+        total_mini_swaps = total - current_swap
         for i in range(1, n):
-            print(window,"swaps-->",swaps)
-            window = window[1:] + [nums[i + total - 1]]
-            swaps = min(swaps,total - window.count(1))
-        return swaps
-        
+            current_swap += nums[i + total - 1] - nums[i-1]
+            total_mini_swaps = min(total_mini_swaps,total - current_swap)
+        return total_mini_swaps
+
 
 obj = Solution()
 nums = [0,1,1,1,0,0,1,1,0]
