@@ -1,15 +1,16 @@
+from collections import deque
 class TreeNode:
     def __init__(self,val=0,left=None,right=None) :
         self.val = val
         self.left = left
         self.right = right
 
-
 def pre_order(Node):
     if Node is None:
         return []
-    return  pre_order(Node.left) + [Node.val] +  pre_order(Node.right) 
+    return  [Node.val] + pre_order(Node.left) +  pre_order(Node.right) 
 
+# BFS Traversal
 def bfs(Node):
     if Node is None:
         return []
@@ -22,6 +23,23 @@ def bfs(Node):
             queue.append(node.left)
         if node.right:
             queue.append(node.right)
+    return results
+
+def LevelWiseTraversal(Node):
+    if Node is None:
+        return []
+    queue = deque([Node])
+    results = []
+    while queue:
+        level = []
+        for i in range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        results.append(level)
     return results
 
 root = TreeNode(1)
@@ -50,3 +68,4 @@ pre = pre_order(root)
 print(pre) 
 
 print(bfs(root))
+print(LevelWiseTraversal(root))
